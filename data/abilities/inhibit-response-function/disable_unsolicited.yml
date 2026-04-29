@@ -9,7 +9,7 @@
     name: sh
     command: >
       ./dnp3-actions tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link}
-      -p #{dnp3.server.port} disable-unsolicited #{dnp3.message.classes}
+      -p #{dnp3.server.port} disable-unsolicited 1 2 3
     payloads:
     - dnp3-actions
     timeout: 60
@@ -17,7 +17,7 @@
     name: psh
     command: >
       .\dnp3-actions.exe tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link}
-      -p #{dnp3.server.port} disable-unsolicited #{dnp3.message.classes}
+      -p #{dnp3.server.port} disable-unsolicited 1 2 3
     payloads:
     - dnp3-actions.exe
     timeout: 60
@@ -25,7 +25,7 @@
     name: cmd
     command: >
       .\dnp3-actions.exe tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link}
-      -p #{dnp3.server.port} disable-unsolicited #{dnp3.message.classes}
+      -p #{dnp3.server.port} disable-unsolicited 1 2 3
     payloads:
     - dnp3-actions.exe
     timeout: 60
@@ -33,7 +33,7 @@
     name: sh
     command: >
       ./dnp3-actions_darwin tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link}
-      -p #{dnp3.server.port} disable-unsolicited #{dnp3.message.classes}
+      -p #{dnp3.server.port} disable-unsolicited 1 2 3
     payloads:
     - dnp3-actions_darwin
     timeout: 60
