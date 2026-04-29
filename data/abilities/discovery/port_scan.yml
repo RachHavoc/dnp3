@@ -1,0 +1,41 @@
+- id: d1a2b3c4-e5f6-7890-abcd-ef1234567801
+  name: DNP3 (TCP) - Port Scan
+  description: >
+    Scans for DNP3 outstations on standard OT-facing ports (TCP 20000,
+    19999, 4999) to confirm reachability before protocol-level interaction.
+  tactic: discovery
+  technique_id: T0840
+  technique_name: Network Connection Enumeration
+  executors:
+  - platform: linux
+    name: sh
+    command: |
+      python3 -c "
+      import socket, json
+      target = '#{dnp3.server.ip}'
+      results = {}
+      for port in [20000, 19999, 4999]:
+          s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+          s.settimeout(3)
+          results[port] = 'open' if s.connect_ex((target, port)) == 0 else 'closed'
+          s.close()
+      print(json.dumps({'target': target, 'dnp3_ports': results}))
+      "
+    timeout: 60
+  - platform: darwin
+    name: sh
+    command: |
+      python3 -c "
+      import socket, json
+      target = '#{dnp3.server.ip}'
+      results = {}
+      for port in [20000, 19999, 4999]:
+          s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+          s.settimeout(3)
+          results[port] = 'open' if s.connect_ex((target, port)) == 0 else 'closed'
+          s.close()
+      print(json.dumps({'target': target, 'dnp3_ports': results}))
+      "
+    timeout: 60
+  repeatable: false
+  plugin: dnp3

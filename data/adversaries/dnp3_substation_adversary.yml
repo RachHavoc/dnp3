@@ -1,0 +1,26 @@
+id: 7a4e2f8c-b3d1-4e9a-8c5f-2b0d7e3a9f1c
+name: Iranian-Affiliated DNP3 Substation Threat Actor
+description: >
+  Adversary profile emulating Iranian-affiliated actor TTPs against
+  internet-exposed DNP3 outstations in electric utility substation environments.
+  Based on CISA April 2026 advisory (co-issued with FBI, NSA, EPA, DOE, USCYBERCOM).
+  Maps to MITRE ATT&CK for ICS.
+
+  Kill chain phases:
+    1. Reconnaissance       - port scan, device enumeration
+    2. Collection           - integrity poll, analog/binary reads, event data
+    3. Inhibit Response     - disable unsolicited (blinds master station SCADA)
+    4. Impair Process Ctrl  - direct operate binary/analog outputs
+    5. Impact               - cold restart, sustained denial of control
+
+atomic_ordering:
+  - d1a2b3c4-e5f6-7890-abcd-ef1234567801   # DNP3 (TCP) - Port Scan
+  - d1a2b3c4-e5f6-7890-abcd-ef1234567802   # DNP3 (TCP) - Device Attribute Enumeration
+  - 1d412b2f-f4ae-3ed2-822e-55a4490a7d1a   # DNP3 (TCP) - Integrity Poll
+  - d1a2b3c4-e5f6-7890-abcd-ef1234567804   # DNP3 (TCP) - Read Analog Inputs (Group 30)
+  - d1a2b3c4-e5f6-7890-abcd-ef1234567805   # DNP3 (TCP) - Read Binary Inputs (Group 1 + 10)
+  - d1a2b3c4-e5f6-7890-abcd-ef1234567806   # DNP3 (TCP) - Read Event Data (Group 60 Var 2/3/4)
+  - 06d24daa-553d-4a2b-ac15-de2f9fe43731   # DNP3 (TCP) - Disable Unsolicited Messages
+  - 5a073c32-e022-3724-85ad-7192464287b8   # DNP3 (TCP) - Operate
+  - 6f8d2e45-c7a9-4b1d-8f3e-5c9b7d2a1b0c   # DNP3 (TCP) - Set Analog Output
+  - dc63f93b-cedd-4bc3-be76-2ae6c1e889a0   # DNP3 (TCP) - Cold Restart
