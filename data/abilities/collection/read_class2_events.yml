@@ -1,11 +1,8 @@
-- id: d1a2b3c4-e5f6-7890-abcd-ef1234567806
-  name: DNP3 (TCP) - Read Class 1 Event Data
+- id: d1a2b3c4-e5f6-7890-abcd-ef1234567808
+  name: DNP3 (TCP) - Read Class 2 Event Data
   description: >
-    Issues a DNP3 Read request for Class 1 event data (Object Group 60, Variation 2)
-    to retrieve high-priority timestamped events from the outstation event buffer.
-    Draining the buffer reveals recent operational history (breaker operations,
-    relay trips) and clears it, preventing legitimate SCADA from receiving
-    event notifications.
+    Issues a DNP3 Read request for Class 2 event data (Object Group 60, Variation 3)
+    to retrieve medium-priority timestamped events from the outstation event buffer.
   tactic: collection
   technique_id: T0802
   technique_name: Automated Collection
@@ -14,7 +11,7 @@
     name: sh
     command: >
       ./dnp3-actions tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link}
-      -p #{dnp3.server.port} read 60 --variation 2
+      -p #{dnp3.server.port} read 60 --variation 3
     payloads:
     - dnp3-actions
     timeout: 60
@@ -22,7 +19,7 @@
     name: psh
     command: >
       .\dnp3-actions.exe tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link}
-      -p #{dnp3.server.port} read 60 --variation 2
+      -p #{dnp3.server.port} read 60 --variation 3
     payloads:
     - dnp3-actions.exe
     timeout: 60
@@ -30,7 +27,7 @@
     name: cmd
     command: >
       .\dnp3-actions.exe tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link}
-      -p #{dnp3.server.port} read 60 --variation 2
+      -p #{dnp3.server.port} read 60 --variation 3
     payloads:
     - dnp3-actions.exe
     timeout: 60
@@ -38,7 +35,7 @@
     name: sh
     command: >
       ./dnp3-actions_darwin tcp #{dnp3.server.ip} #{dnp3.local.link} #{dnp3.remote.link}
-      -p #{dnp3.server.port} read 60 --variation 2
+      -p #{dnp3.server.port} read 60 --variation 3
     payloads:
     - dnp3-actions_darwin
     timeout: 60
