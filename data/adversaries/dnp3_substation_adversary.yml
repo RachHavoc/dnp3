@@ -1,10 +1,9 @@
 id: 7a4e2f8c-b3d1-4e9a-8c5f-2b0d7e3a9f1c
-name: Iranian-Affiliated DNP3 Substation Threat Actor
+name: DNP3 Substation Threat Actor
 description: >
-  Adversary profile emulating Iranian-affiliated actor TTPs against
-  internet-exposed DNP3 outstations in electric utility substation environments.
-  Based on CISA April 2026 advisory (co-issued with FBI, NSA, EPA, DOE, USCYBERCOM).
-  Maps to MITRE ATT&CK for ICS.
+  Adversary profile emulating TTPs against internet-exposed DNP3 outstations
+  in electric utility substation environments, based on CISA April 2026 advisory
+  (co-issued with FBI, NSA, EPA, DOE, USCYBERCOM). Maps to MITRE ATT&CK for ICS.
 
   Kill chain phases:
     1. Reconnaissance       - port scan, device enumeration
