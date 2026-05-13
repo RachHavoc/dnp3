@@ -1,0 +1,50 @@
+- id: f3a1c9e7-2b4d-4081-8e5a-6c3f2d9b7e07
+  name: RTAC HMI - Upload Project (Credentials)
+  description: >
+    Uploads a modified or malicious HMI project file to the SEL RTAC via
+    POST /api/v1/hmi/projects using captured Basic auth credentials. Replaces
+    legitimate operator displays with falsified process views or altered control
+    bindings. Emulates an attacker using harvested username/password to deploy
+    a manipulated relay configuration through the HMI management interface.
+  tactic: impair-process-control
+  technique_id: T0836
+  technique_name: Modify Parameter
+  executors:
+  - platform: linux
+    name: sh
+    command: >
+      python3 ./rtac_hmi.py --base-url #{rtac.hmi.base_url}
+      --username #{rtac.hmi.username} --password #{rtac.hmi.password}
+      --insecure upload-project #{rtac.hmi.project_file}
+    payloads:
+    - rtac_hmi.py
+    timeout: 120
+  - platform: darwin
+    name: sh
+    command: >
+      python3 ./rtac_hmi.py --base-url #{rtac.hmi.base_url}
+      --username #{rtac.hmi.username} --password #{rtac.hmi.password}
+      --insecure upload-project #{rtac.hmi.project_file}
+    payloads:
+    - rtac_hmi.py
+    timeout: 120
+  - platform: windows
+    name: psh
+    command: >
+      python ./rtac_hmi.py --base-url #{rtac.hmi.base_url}
+      --username #{rtac.hmi.username} --password #{rtac.hmi.password}
+      --insecure upload-project #{rtac.hmi.project_file}
+    payloads:
+    - rtac_hmi.py
+    timeout: 120
+  - platform: windows
+    name: cmd
+    command: >
+      python ./rtac_hmi.py --base-url #{rtac.hmi.base_url}
+      --username #{rtac.hmi.username} --password #{rtac.hmi.password}
+      --insecure upload-project #{rtac.hmi.project_file}
+    payloads:
+    - rtac_hmi.py
+    timeout: 120
+  repeatable: false
+  plugin: dnp3

@@ -1,0 +1,24 @@
+id: c7e2f4a1-b8d3-4e9f-a0c5-3d7b2e8f1a09
+name: RTAC HMI Facts
+facts:
+  # --- RTAC connection ---
+  - trait: rtac.hmi.base_url
+    value: https://192.168.100.10    # RTAC management IP — update per exercise range
+
+  # --- Authentication (choose one: token or username/password) ---
+  - trait: rtac.hmi.token
+    value: changeme                  # Bearer token from RTAC; or leave blank and set username below
+
+  - trait: rtac.hmi.username
+    value: admin                     # Username for Basic auth (harvested credentials scenario)
+
+  - trait: rtac.hmi.password
+    value: changeme                  # Password for Basic auth — set per exercise range
+
+  # --- Project targeting ---
+  - trait: rtac.hmi.project_name
+    value: MyProject                 # HMI project name for download/delete operations
+
+  # --- Upload payload ---
+  - trait: rtac.hmi.project_file
+    value: ./MyProject.hprjson       # Path to .hprjson file to upload (on the agent host)
