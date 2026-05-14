@@ -1,0 +1,39 @@
+- id: 98318da9-f77a-4366-83eb-e74e57383f60
+  name: DNP3 - Range Port Scan
+  description: >
+    Scans a subnet CIDR range for hosts with DNP3 port 20000 open.
+    Uses the ip_range_devices fact (e.g. 10.0.0.0/24).
+  tactic: discovery
+  technique_id: T1046
+  technique_name: Network Service Scanning
+  executors:
+  - platform: linux
+    name: sh
+    command: >
+      python3 -c "import socket,ipaddress;
+      [print(str(h)) or s.close() for h in ipaddress.ip_network('#{ip_range_devices}',strict=False).hosts()
+      if (s:=socket.socket()) and not s.settimeout(0.5) and s.connect_ex((str(h),20000))==0]"
+    timeout: 300
+  - platform: darwin
+    name: sh
+    command: >
+      python3 -c "import socket,ipaddress;
+      [print(str(h)) or s.close() for h in ipaddress.ip_network('#{ip_range_devices}',strict=False).hosts()
+      if (s:=socket.socket()) and not s.settimeout(0.5) and s.connect_ex((str(h),20000))==0]"
+    timeout: 300
+  - platform: windows
+    name: psh
+    command: >
+      python3 -c "import socket,ipaddress;
+      [print(str(h)) or s.close() for h in ipaddress.ip_network('#{ip_range_devices}',strict=False).hosts()
+      if (s:=socket.socket()) and not s.settimeout(0.5) and s.connect_ex((str(h),20000))==0]"
+    timeout: 300
+  - platform: windows
+    name: cmd
+    command: >
+      python3 -c "import socket,ipaddress;
+      [print(str(h)) or s.close() for h in ipaddress.ip_network('#{ip_range_devices}',strict=False).hosts()
+      if (s:=socket.socket()) and not s.settimeout(0.5) and s.connect_ex((str(h),20000))==0]"
+    timeout: 300
+  repeatable: false
+  plugin: dnp3

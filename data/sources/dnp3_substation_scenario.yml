@@ -40,3 +40,7 @@ facts:
   # --- Unsolicited message control ---
   - trait: dnp3.message.classes
     value: "1 2 3"               # Event classes to disable/enable unsolicited reporting
+
+  # --- Range scanning ---
+  - trait: ip_range_devices
+    value: "192.168.100.0/24"    # Subnet CIDR to scan for DNP3 hosts
