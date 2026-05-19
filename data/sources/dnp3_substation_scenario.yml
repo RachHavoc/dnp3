@@ -1,0 +1,46 @@
+id: f9e8d7c6-b5a4-3210-fedc-ba9876543210
+name: DNP3 Substation Scenario Facts
+facts:
+  # --- Connection ---
+  - trait: dnp3.server.ip
+    value: 192.168.100.10        # Target outstation IP — update per exercise range
+
+  - trait: dnp3.server.port
+    value: "20000"               # Default DNP3 TCP port; alternates: 19999, 4999
+
+  - trait: dnp3.local.link
+    value: "10"                  # DNP3 link layer address of the master (adversary side)
+
+  - trait: dnp3.remote.link
+    value: "1"                   # DNP3 link layer address of the target outstation
+
+  # --- Binary output control (CROB — breaker trip/close) ---
+  - trait: dnp3.operate.mode
+    value: DO                    # Direct Operate (no prior Select required)
+
+  - trait: dnp3.operate.indices
+    value: "0"                   # Point index of target binary output (e.g., breaker trip)
+
+  - trait: dnp3.operate.type
+    value: LATCH_OFF             # LATCH_OFF=trip, LATCH_ON=close, PULSE_ON/OFF for momentary
+
+  - trait: dnp3.operate.tcc
+    value: NUL                   # NUL for standard CROB; TRIP or CLOSE for activation model
+
+  # --- Analog output control (setpoint manipulation) ---
+  - trait: dnp3.analog.indices
+    value: "0"                   # Point index of target analog output (e.g., protection setpoint)
+
+  - trait: dnp3.analog.values
+    value: "9999.0"              # Malicious value (e.g., max to prevent overcurrent trip)
+
+  - trait: dnp3.analog.dtype
+    value: FLOAT32
+
+  # --- Unsolicited message control ---
+  - trait: dnp3.message.classes
+    value: "1 2 3"               # Event classes to disable/enable unsolicited reporting
+
+  # --- Range scanning ---
+  - trait: ip_range_devices
+    value: "192.168.100.0/24"    # Subnet CIDR to scan for DNP3 hosts

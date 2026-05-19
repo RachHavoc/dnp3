@@ -1,0 +1,49 @@
+- id: f3a1c9e7-2b4d-4081-8e5a-6c3f2d9b7e05
+  name: RTAC HMI - List Projects (Credentials)
+  description: >
+    Queries the SEL RTAC HMI REST API (GET /api/v1/hmi/projects) using captured
+    Basic auth credentials. Enumerates all deployed HMI projects to confirm
+    credential validity and identify targets for follow-on collection or
+    manipulation. Emulates an attacker using harvested username/password.
+  tactic: discovery
+  technique_id: T0888
+  technique_name: Remote System Information Discovery
+  executors:
+  - platform: linux
+    name: sh
+    command: >
+      python3 ./rtac_hmi.py --base-url #{rtac.hmi.base_url}
+      --username #{rtac.hmi.username} --password #{rtac.hmi.password}
+      --insecure list-projects
+    payloads:
+    - rtac_hmi.py
+    timeout: 60
+  - platform: darwin
+    name: sh
+    command: >
+      python3 ./rtac_hmi.py --base-url #{rtac.hmi.base_url}
+      --username #{rtac.hmi.username} --password #{rtac.hmi.password}
+      --insecure list-projects
+    payloads:
+    - rtac_hmi.py
+    timeout: 60
+  - platform: windows
+    name: psh
+    command: >
+      python ./rtac_hmi.py --base-url #{rtac.hmi.base_url}
+      --username #{rtac.hmi.username} --password #{rtac.hmi.password}
+      --insecure list-projects
+    payloads:
+    - rtac_hmi.py
+    timeout: 60
+  - platform: windows
+    name: cmd
+    command: >
+      python ./rtac_hmi.py --base-url #{rtac.hmi.base_url}
+      --username #{rtac.hmi.username} --password #{rtac.hmi.password}
+      --insecure list-projects
+    payloads:
+    - rtac_hmi.py
+    timeout: 60
+  repeatable: true
+  plugin: dnp3

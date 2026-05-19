@@ -76,3 +76,6 @@ facts:
 
 - trait: dnp3.message.classes # Used to control unsolicited messages
   value: 1,2,3
+
+- trait: ip_range_devices # Subnet CIDR to scan for DNP3 hosts
+  value: 10.0.0.0/24
