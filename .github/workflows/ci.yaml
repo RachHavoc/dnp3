@@ -89,6 +89,48 @@ jobs:
           path: src/bin/dnp3-outstation_darwin
           retention-days: 1
 
+  build-hmi-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build rtac_hmi
+        run: |
+          pip install pyinstaller
+          pyinstaller --onefile --name rtac_hmi --strip payloads/rtac_hmi.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rtac_hmi
+          path: dist/rtac_hmi
+          retention-days: 1
+
+  build-hmi-linux-arm:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build rtac_hmi
+        run: |
+          pip install pyinstaller
+          pyinstaller --onefile --name rtac_hmi_linux-arm --strip payloads/rtac_hmi.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rtac_hmi_linux-arm
+          path: dist/rtac_hmi_linux-arm
+          retention-days: 1
+
+  build-hmi-darwin:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build rtac_hmi
+        run: |
+          pip install pyinstaller
+          pyinstaller --onefile --name rtac_hmi_darwin --strip payloads/rtac_hmi.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rtac_hmi_darwin
+          path: dist/rtac_hmi_darwin
+          retention-days: 1
+
   build-windows:
     runs-on: windows-latest
     steps:
@@ -117,6 +159,9 @@ jobs:
       - build-linux-arm
       - build-darwin
       - build-windows
+      - build-hmi-linux
+      - build-hmi-linux-arm
+      - build-hmi-darwin
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -124,7 +169,7 @@ jobs:
       - name: Download payloads
         uses: actions/download-artifact@v4
         with:
-          pattern: dnp3*
+          pattern: "{dnp3*,rtac_hmi*}"
           merge-multiple: true
           path: payloads/
 
